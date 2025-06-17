@@ -17,9 +17,6 @@ function BoardCard({ board, pinned, onDelete, onPinToggle }) {
   };
 
   const handleDelete = () => {
-    try {
-        
-    }
     onDelete(board.id);
   };
 

@@ -1,0 +1,7 @@
+.search-components {
+    border: 1px solid black;
+    text-align: center;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+}

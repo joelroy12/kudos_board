@@ -1,0 +1,31 @@
+
+.Banner {
+    height: auto;
+    display: flex;
+    justify-content: center;
+    border: 1px solid blue;
+    width: 100vw;
+    margin: 0;
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+button{
+    padding: 10px 14px;
+    border: none;
+    border-radius: 80px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+select {
+    background-color: #121212;
+    border: 1px solid #555;
+    font-size: 16px;
+    text-align: center;
+}

@@ -1,0 +1,7 @@
+.board-card {
+    width: 275px;
+    height: 425px;
+    border: 1px solid green;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 15px;
+}

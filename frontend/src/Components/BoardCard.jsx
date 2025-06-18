@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "./BoardCard.css";
 
 function BoardCard({ board, pinned, onDelete, onPinToggle }) {
+  const {title, description, image, owner} = card;
   const navigate = useNavigate();
   const [likes, setLikes] = useState(0);
 
@@ -26,6 +27,11 @@ function BoardCard({ board, pinned, onDelete, onPinToggle }) {
   };
 
   const handleUpvote = () => {
+    // try {
+    //   await fetch(
+
+    //   )
+    // }
     setLikes(likes + 1);
   };
 
@@ -41,6 +47,9 @@ function BoardCard({ board, pinned, onDelete, onPinToggle }) {
       </div>
       <div className="card-content">
         <h3>Board Title: ({board.title})</h3>
+        <p>{description}</p>
+        <img src={""}></img>
+        <p>{owner}</p>
         <button className="view-button" onClick={handleViewClick}>View Board</button>
         <button className="delete-button" onClick={handleDelete}>🗑️</button>
         <button className="upvote-button" onClick={handleUpvote}>⇪ {likes}</button>

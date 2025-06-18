@@ -5,8 +5,12 @@ const prisma = new PrismaClient();
 const boardRoutes = require("./routes/boardRoutes");
 const cardRoutes = require("./routes/cardRoutes");
 const commentRoutes = require("./routes/commentRoutes");
-const port = process.env.PORT || 5433;
+const port = process.env.PORT || 3000;
 
 app.use("./boards", boardRoutes);
 app.use("./cards", cardRoutes);
 app.use("./comments", commentRoutes);
+
+app.listen(port, () => {
+  console.log("This works");
+});

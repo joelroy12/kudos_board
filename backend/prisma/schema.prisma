@@ -14,22 +14,35 @@ datasource db {
 }
 
 model Card {
-  id   Int    @id @default(autoincrement())
-  content String    
-  boardId String
-  //board Board       @relation(fields: [boardId], references: [board_id])
-  gif String
-  upvotes Int       @default(0)
-  createdAt DateTime
-  updatedAt DateTime
+  card_id     Int       @id @default(autoincrement())
+  title       String
+  description String
+  owner       String
+  board_id    Int
+  gif         String
+  upvotes     Int       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  Board       Board     @relation(fields: [board_id], references: [board_id])
+  comments    Comment[]
 }
 
 model Board {
-  id Int        @id @default(autoincrement())
-  title String
-  category String
-  owner String
+  board_id  Int      @id @default(autoincrement())
+  title     String
+  category  String
+  owner     String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  //cards card[]
-} 
+  cards     Card[]
+}
+
+model Comment {
+  comment_id Int      @id @default(autoincrement())
+  body       String
+  author     String
+  card_id    Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  card       Card     @relation(fields: [card_id], references: [card_id])
+}

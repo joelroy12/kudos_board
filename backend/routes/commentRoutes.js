@@ -9,7 +9,7 @@ router.get("/", async (req, res) => {
     const comments = await prisma.comment.findMany();
     res.json(comments);
   } catch {
-    res.status(404).send("Error: ", { error });
+    res.status(404).json({ error: error.message });
   }
 });
 
@@ -22,7 +22,7 @@ router.get("/card/:card_id", async (req, res) => {
     });
     res.json(comments);
   } catch {
-    res.status(500).send("Error: ", { error });
+    res.status(500).json({ error: error.message });
   }
 });
 
@@ -35,7 +35,7 @@ router.get("/:comment_id", async (req, res) => {
     });
     res.json(comment);
   } catch {
-    res.status(500).send("Error: ", { error });
+    res.status(500).json({ error: error.message });
   }
 });
 
@@ -52,14 +52,14 @@ router.post("/", async (req, res) => {
     });
     res.status(201).json(newComment);
   } catch {
-    res.status(404).send("Error: ", { error });
+    res.status(404).json({ error: error.message });
   }
 });
 
 // Update comment by id
 router.put("/:comment_id", async (req, res) => {
   const comment_id = parseInt(req.params.comment_id);
-  const { body, author} = req.body;
+  const { body, author } = req.body;
   try {
     const updatedComment = await prisma.comment.update({
       where: { comment_id },

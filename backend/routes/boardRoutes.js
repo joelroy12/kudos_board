@@ -9,12 +9,12 @@ router.get("/", async (req, res) => {
     const boards = await prisma.board.findMany();
     res.json(boards);
   } catch {
-    res.status(404).send("Error: ", { error });
+    res.status(404).json({ error: error.message });
   }
 });
 
 // Get one unique board by id
-router.get("/", async (req, res) => {
+router.get("/:id", async (req, res) => {
   const id = parseInt(req.params.id);
   try {
     const board = await prisma.board.findUnique({
@@ -22,7 +22,7 @@ router.get("/", async (req, res) => {
     });
     res.json(board);
   } catch {
-    res.status(500).send("Error: ", { error });
+    res.status(500).json({ error: error.message });
   }
 });
 
@@ -39,7 +39,7 @@ router.post("/", async (req, res) => {
     });
     res.status(201).json(newBoard);
   } catch {
-    res.status(404).send("Error: ", { error });
+    res.status(404).json({ error: error.message });
   }
 });
 

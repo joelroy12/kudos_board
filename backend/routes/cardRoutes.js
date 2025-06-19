@@ -9,7 +9,7 @@ router.get("/", async (req, res) => {
     const cards = await prisma.card.findMany();
     res.json(cards);
   } catch {
-    res.status(404).send("Error: ", { error });
+    res.status(404).json({ error: error.message });
   }
 });
 
@@ -22,7 +22,7 @@ router.get("./board/:board_id", async (req, res) => {
     });
     res.json(cards);
   } catch {
-    res.status(500).send("Error: ", { error });
+    res.status(500).json({ error: error.message });
   }
 });
 
@@ -35,7 +35,7 @@ router.get("/:card_id", async (req, res) => {
     });
     res.json(card);
   } catch {
-    res.status(500).send("Error: ", { error });
+    res.status(500).json({ error: error.message });
   }
 });
 
@@ -56,7 +56,7 @@ router.post("/", async (req, res) => {
     });
     res.status(201).json(newCard);
   } catch {
-    res.status(404).send("Error: ", { error });
+    res.status(404).json({ error: error.message });
   }
 });
 

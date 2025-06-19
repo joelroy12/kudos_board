@@ -3,8 +3,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./BoardCard.css";
 
-function BoardCard({ board, pinned, onDelete, onPinToggle }) {
-  const {title, description, image, owner} = card;
+function BoardCard({ board, pinned, onDelete, onPinToggle, card }) {
+  //const { title, description, image, owner } = card;
   const navigate = useNavigate();
   const [likes, setLikes] = useState(0);
 
@@ -23,7 +23,7 @@ function BoardCard({ board, pinned, onDelete, onPinToggle }) {
 
   const handlePinClick = (event) => {
     event.stopPropagation();
-    onPinToggle(board.id)
+    onPinToggle(board.id);
   };
 
   const handleUpvote = () => {
@@ -39,20 +39,24 @@ function BoardCard({ board, pinned, onDelete, onPinToggle }) {
     <div className="board-card" onClick={handleCardClick}>
       <div className="board-image-container">
         <img className="board-image" src="./assets/Welcome.jpg"></img>
-        <button
-          className="pin-button"
-          onClick={handlePinClick}>
+        <button className="pin-button" onClick={handlePinClick}>
           {pinned ? "📍" : "⟟"}
         </button>
       </div>
       <div className="card-content">
-        <h3>Board Title: ({board.title})</h3>
-        <p>{description}</p>
+        {/* <h3>Board Title: ({board.title})</h3> */}
+        {/* <p>{description}</p> */}
         <img src={""}></img>
-        <p>{owner}</p>
-        <button className="view-button" onClick={handleViewClick}>View Board</button>
-        <button className="delete-button" onClick={handleDelete}>🗑️</button>
-        <button className="upvote-button" onClick={handleUpvote}>⇪ {likes}</button>
+        {/* <p>{owner}</p> */}
+        <button className="view-button" onClick={handleViewClick}>
+          View Board
+        </button>
+        <button className="delete-button" onClick={handleDelete}>
+          🗑️
+        </button>
+        <button className="upvote-button" onClick={handleUpvote}>
+          ⇪ {likes}
+        </button>
       </div>
     </div>
   );

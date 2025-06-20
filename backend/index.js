@@ -3,12 +3,17 @@ const cors = require("cors");
 const server = express();
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
+const port = process.env.PORT || 4000;
 const boardRoutes = require("./routes/boardRoutes");
 const cardRoutes = require("./routes/cardRoutes");
 const commentRoutes = require("./routes/commentRoutes");
-const port = process.env.PORT || 3000;
 server.use(express.json());
 server.use(cors());
+
+server.get("/", (req, res) => {
+  res.send("Backend server is running");
+});
+
 server.use("/boards", boardRoutes);
 server.use("/cards", cardRoutes);
 server.use("/comments", commentRoutes);
@@ -25,7 +30,7 @@ async function welcomeBoard() {
         title: "Welcome",
         description: "Create your first Kudos Board!",
         category: "celebration",
-        author: "Kudor",
+        owner: "Kudor",
         //image: Welcome,
       },
     });
@@ -34,4 +39,5 @@ async function welcomeBoard() {
 
 server.listen(port, () => {
   console.log("This works");
+  welcomeBoard().catch((error) => console.error("Error: ", error));
 });

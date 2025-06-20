@@ -21,6 +21,8 @@ model Card {
   board_id    Int
   gif         String
   upvotes     Int       @default(0)
+  isPinned    Boolean   @default(false)
+  pinnedAt    DateTime
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   Board       Board     @relation(fields: [board_id], references: [board_id])
@@ -28,13 +30,14 @@ model Card {
 }
 
 model Board {
-  board_id  Int      @id @default(autoincrement())
-  title     String
-  category  String
-  owner     String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  cards     Card[]
+  board_id    Int      @id @default(autoincrement())
+  title       String
+  description String
+  category    String
+  owner       String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  cards       Card[]
 }
 
 model Comment {

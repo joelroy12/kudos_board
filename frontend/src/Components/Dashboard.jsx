@@ -12,9 +12,13 @@ function Dashboard() {
   useEffect(() => {
     // Fetch all the boards from the backend
     async function fetchBoards() {
-      const res = await fetch("http://localhost:3000/boards");
-      const data = await res.json();
-      setBoards(data);
+      try {
+        const res = await fetch("http://localhost:4000/boards");
+        const data = await res.json();
+        setBoards(data);
+      } catch (error) {
+        console.error("Error fetching boards: ", error);
+      }
     }
 
     // Fetched the pinned boards from the user
@@ -25,7 +29,7 @@ function Dashboard() {
     }
 
     fetchBoards();
-    //fetchPinned();
+    fetchPinned();
   }, []);
 
   const handlePinToggle = async (boardId) => {

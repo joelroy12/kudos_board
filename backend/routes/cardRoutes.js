@@ -62,7 +62,7 @@ router.post("/", async (req, res) => {
 
 // Update card by id
 router.put("/:card_id", async (req, res) => {
-  const card_id = parseInt(req.params.card_id)
+  const card_id = parseInt(req.params.card_id);
   const { title, content, gif, upvotes } = req.body;
   try {
     const updatedCard = await prisma.card.update({
@@ -76,6 +76,25 @@ router.put("/:card_id", async (req, res) => {
       },
     });
     res.json(updatedCard);
+  } catch {
+    res.status(500).json("Error: ", { error });
+  }
+});
+
+// Update whether a card is pinned or not
+router.put("/:card_id/pin", async (req, res) => {
+  const { card_id } = req.params;
+  const { isPinned } = req.body;
+
+  try {
+    const updated = await prisma.card.update({
+      where: { card_id: parseInt(card_id) },
+      data: {
+        isPinned,
+        pinnedAt: isPinned ? new Date() : null,
+      },
+    });
+    res.json(updated);
   } catch {
     res.status(500).json("Error: ", { error });
   }

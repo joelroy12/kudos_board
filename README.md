@@ -4,9 +4,9 @@
 
 ## Unit Assignment: Kudos Board
 
-Submitted by: **NAME**
+Submitted by: Joel Roy
 
-Deployed Application (**required**): [Kudos Board Deployed Site](ADD_LINK_HERE)
+Deployed Application (**required**): [Kudos Board Deployed Site]([ADD_LINK_HERE)](https://kudos-board-1-7eeg.onrender.com)
 
 ### Application Features
 
@@ -141,7 +141,7 @@ Deployed Application (**required**): [Kudos Board Deployed Site](ADD_LINK_HERE)
 
 `TODO://` Add the embedded URL code to your animated app walkthrough below, `ADD_EMBEDDED_CODE_HERE`. Make sure the video or gif actually renders and animates when viewing this README. Ensure your walkthrough showcases the presence and/or functionality of all features you implemented above (check them off as you film!). Pay attention to any **VIDEO WALKTHROUGH SPECIAL INSTRUCTIONS** checkboxes listed above to ensure graders see the full functionality of your website! (🚫 Remove this paragraph after adding walkthrough video)
 
-`ADD_EMBEDDED_CODE_HERE`
+<div style="position: relative; padding-bottom: 55.41666666666667%; height: 0;"><iframe src="https://www.loom.com/embed/6f9ea00f69dc40a2929f2ee7e2ae8675?sid=bf181522-e05d-4533-9ad6-351d50aefdec" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
 
 ### Reflection
 

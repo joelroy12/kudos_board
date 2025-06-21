@@ -2,60 +2,53 @@ const express = require("express");
 const router = express.Router();
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
+console.log("hello");
 
 // Get all cards
 router.get("/", async (req, res) => {
   try {
     const cards = await prisma.card.findMany();
     res.json(cards);
-  } catch {
+  } catch (error) {
     res.status(404).json({ error: error.message });
   }
 });
 
 // Get cards for a specific board
-router.get("./board/:board_id", async (req, res) => {
+router.get("/boards/:board_id", async (req, res) => {
   const board_id = parseInt(req.params.board_id);
   try {
     const cards = await prisma.card.findMany({
       where: { board_id },
     });
     res.json(cards);
-  } catch {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// Get single unique card by board_id
-router.get("/:card_id", async (req, res) => {
-  const card_id = parseInt(req.params.board_id);
-  try {
-    const card = await prisma.card.findUnique({
-      where: { card_id },
-    });
-    res.json(card);
-  } catch {
+  } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
 // Create a new card
 router.post("/", async (req, res) => {
-  const { title, content, gif, board_id } = req.body;
+  const { title, description, gif, board_id, owner, isPinned, comments } = req.body;
+  console.log(description, title);
   try {
     const newCard = await prisma.card.create({
       data: {
         title,
-        content,
+        description,
         gif,
-        board_id,
-        upvotes,
-        createdAt,
-        updatedAt,
+        board_id: parseInt(board_id),
+        upvotes: 0,
+        owner,
+        pinnedAt: new Date(), 
+        isPinned,
+        comments,
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
     });
     res.status(201).json(newCard);
-  } catch {
+  } catch (error) {
     res.status(404).json({ error: error.message });
   }
 });
@@ -63,20 +56,19 @@ router.post("/", async (req, res) => {
 // Update card by id
 router.put("/:card_id", async (req, res) => {
   const card_id = parseInt(req.params.card_id);
-  const { title, content, gif, upvotes } = req.body;
+  const { title, description, gif, board_id } = req.body;
   try {
     const updatedCard = await prisma.card.update({
       where: { card_id },
       data: {
         title,
-        content,
+        description,
         gif,
-        upvotes,
-        updatedAt,
+        board_id,
       },
     });
     res.json(updatedCard);
-  } catch {
+  } catch (error) {
     res.status(500).json("Error: ", { error });
   }
 });
@@ -95,7 +87,7 @@ router.put("/:card_id/pin", async (req, res) => {
       },
     });
     res.json(updated);
-  } catch {
+  } catch (error) {
     res.status(500).json("Error: ", { error });
   }
 });
@@ -108,8 +100,21 @@ router.delete("/:card_id", async (req, res) => {
       where: { card_id },
     });
     res.status(204).send();
-  } catch {
+  } catch (error) {
     res.status(500).json("Error: ", { error });
+  }
+});
+
+// Get single unique card by board_id
+router.get("/:card_id", async (req, res) => {
+  const card_id = parseInt(req.params.card_id);
+  try {
+    const card = await prisma.card.findUnique({
+      where: { card_id },
+    });
+    res.json(card);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 });
 

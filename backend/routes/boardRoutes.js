@@ -69,7 +69,7 @@ router.delete("/:id", async (req, res) => {
     await prisma.board.delete({
       where: { board_id: id },
     });
-    res.json(204).send();
+    res.status(204).send();
   } catch {
     res.status(500).json("Error: ", { error });
   }

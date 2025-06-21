@@ -6,21 +6,32 @@ import Header from "./Components/Header";
 import Banner from "./Components/Banner";
 import SearchBar from "./Components/SearchBar";
 import Footer from "./Components/Footer";
+import BoardPage from "./Components/BoardPage";
 import { useNavigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import HomeSearch from "./Components/HomeSearch";
 
 function App() {
-  const [searchInput, setSearchInput] = useState("");
   const [searchSuggestions, setSearchSuggestions] = useState("");
-  const navigate = useNavigate();
-  
+  const [showCreateForm, setShowCreateForm] = useState(false);
+
+  const handleCreateBoard = (newBoard) => {
+    setBoards((prev) => [newBoard, ...prev]);
+  };
+
   return (
     <div className="App">
       <div className="top-section">
         <Header />
         <Banner />
-        <SearchBar />
+        <HomeSearch />
+
       </div>
-      <Dashboard />
+       
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/boards/:id" element={<BoardPage />} />
+      </Routes>
       <Footer />
     </div>
   );

@@ -4,4 +4,91 @@
     border: 1px solid green;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.board-card:hover {
+    transform: scale(1.05) ;
+    box-shadow: 0 8px 20px rgba(255, 255, 255, 0.35);
+    cursor: pointer;
+}
+
+.board-image-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    overflow: hidden;
+    align-items: center;
+    height: 275px;
+    object-fit: cover;
+    position: relative;
+}
+
+.board-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.pin-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 32px;
+    height: 32px;
+    background: white;
+    display: flex;
+    justify-content: flex-end;
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 16px;
+}
+
+.board-content {
+    padding: 10px 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 0;
+}
+
+.board-title,
+.board-description, 
+.board-owner {
+    margin: 4px 0;
+    text-align: center;
+}
+
+.view-button {
+    background: lightgray;
+    border: none;
+    font-size: 12px;
+    cursor: pointer;
+    width: 150px;
+}
+
+.delete-button {
+    background: lightgray;
+    border: none;
+    font-size: 12px;
+    cursor: pointer;
+    width: 100px;
+}
+
+.board-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    justify-content: space-evenly;
+}
+
+.board-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 5px;
 }

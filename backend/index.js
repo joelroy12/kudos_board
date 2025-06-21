@@ -17,7 +17,7 @@ server.get("/", (req, res) => {
 server.use("/boards", boardRoutes);
 server.use("/cards", cardRoutes);
 server.use("/comments", commentRoutes);
-//import Welcome from '../frontend/src/assets/Welcome.jpg'
+//import Welcome from "../frontend/src/assets/Welcome.jpg";
 
 async function welcomeBoard() {
   const welcome = await prisma.board.findFirst({
@@ -29,9 +29,10 @@ async function welcomeBoard() {
       data: {
         title: "Welcome",
         description: "Create your first Kudos Board!",
-        category: "celebration",
+        category: "Celebration",
         owner: "Kudor",
-        //image: Welcome,
+        image:
+          "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freepik.com%2Ffree-photos-vectors%2Fwelcome-store&psig=AOvVaw1lcmDBgGzvO8JJ77e7msT3&ust=1750525158850000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCPCL9MO8gI4DFQAAAAAdAAAAABAE",
       },
     });
   }

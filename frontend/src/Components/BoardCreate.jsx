@@ -6,6 +6,7 @@ function BoardCreate({ onCreate }) {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const [author, setAuthor] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
   const categoryOptions = ["Recent", "Celebration", "Thank you", "Inspiration"];
 
   const handleSubmit = (event) => {
@@ -24,6 +25,7 @@ function BoardCreate({ onCreate }) {
     setTitle("");
     setCategory("");
     setAuthor("");
+    setImageUrl("");
   };
 
   return (
@@ -60,6 +62,10 @@ function BoardCreate({ onCreate }) {
           placeholder="Enter author name"
         />
       </label>
+      {/* <label>
+        Image URL
+        <input type="text" value={imageUrl} onChange={(event) => setImageUrl(event.target.value)} placeholder="Link here!"></input>
+      </label> */}
       <button type="submit">Create Board</button>
     </form>
   );

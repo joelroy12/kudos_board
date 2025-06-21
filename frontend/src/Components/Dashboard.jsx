@@ -8,9 +8,9 @@ import BoardCreate from "./BoardCreate";
 
 function Dashboard() {
   const [pinnedBoards, setPinnedBoards] = useState([]);
-  const [boards, setBoards] = useState([])
+  const [boards, setBoards] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("All");
-
+  const [searchQuery, setSearchQuery] = useState("");
   useEffect(() => {
     // Fetch all the boards from the backend
     async function fetchBoards() {
@@ -31,13 +31,13 @@ function Dashboard() {
 
   const handlePinToggle = async (boardId) => {
     try {
-      const res = await fetch(`http://localhost:4000/boards/${boardID}/pin`, {
+      const res = await fetch(`http://localhost:4000/boards/${boardId}/pin`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
       });
       const updatedBoard = await res.json();
 
-      setBoards((previousBoards) => 
+      setBoards((previousBoards) =>
         previousBoards.map((board) =>
           board.board_id === boardId ? updatedBoard : board
         )
@@ -76,42 +76,57 @@ function Dashboard() {
   });
 
   const handleCreateBoard = (newBoard) => {
-    setBoards((prev) =>[newBoard, ...prev]);
-  }
+    setBoards((prev) => [newBoard, ...prev]);
+  };
+
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+  };
+  const getFilteredBoards = () => {
+    let filtered = [...sortedBoards];
+    if (searchQuery.trim()) {
+      filtered = filtered.filter(
+        (board) =>
+          board.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          board.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          board.category.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
+    if (selectedCategory !== "All") {
+      if (selectedCategory === "Recent") {
+        return filtered.slice(0, 6);
+      } else {
+        const categoryBoards = filtered.filter(
+          (board) => board.category === selectedCategory
+        );
+        return categoryBoards.slice(0, 6);
+      }
+    }
+    return filtered;
+  };
+
+  const filteredBoards = getFilteredBoards();
 
   return (
     <div className="Dashboard">
-      <HomeSearch />
+      <HomeSearch onSearch={handleSearch} />
       <BoardCreate onCreate={handleCreateBoard} />
       <div className="category-filter">
         <label htmlFor="category-select">Filter by Category: </label>
-        <select id="category-select" value={selectedCategory} onChange={(event) => setSelectedCategory(event.target.value)}>
+        <select
+          id="category-select"
+          value={selectedCategory}
+          onChange={(event) => setSelectedCategory(event.target.value)}>
           <option value="All">All</option>
-        <option value="Recent">Recent</option>
-        <option value="Celebration">Celebration</option>
-        <option value="Thank you">Thank you</option>
-        <option value="Inspiration">Inspiration</option>
+          <option value="Recent">Recent</option>
+          <option value="Celebration">Celebration</option>
+          <option value="Thank you">Thank you</option>
+          <option value="Inspiration">Inspiration</option>
         </select>
       </div>
       <div className="board-display">
-      {sortedBoards
-        .filter((board) =>
-          selectedCategory === "All"
-            ? true
-            : board.category === selectedCategory
-        )
-        .map((board) => (
-          <BoardCard
-            key={board.board_id}
-            board={board}
-            pinned={pinnedBoards.includes(board.board_id)}
-            onDelete={handleDeleteBoard}
-            onPinToggle={handlePinToggle}
-          />
-        ))}
-    </div>
-      <div className="board-display">
-        {sortedBoards.map((board) => (
+        {filteredBoards.map((board) => (
           <BoardCard
             key={board.board_id}
             board={board}

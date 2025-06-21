@@ -46,7 +46,7 @@ router.post("/", async (req, res) => {
 // Update board by id
 router.put("/:id", async (req, res) => {
   const id = parseInt(req.params.id);
-  const { title, category, owner } = req.body;
+  const { title, category, owner, image } = req.body;
   try {
     const updatedBoard = await prisma.board.update({
       where: { board_id: id },
@@ -54,6 +54,7 @@ router.put("/:id", async (req, res) => {
         title,
         category,
         owner,
+        image,
       },
     });
     res.json(updatedBoard);
